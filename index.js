@@ -1,4 +1,4 @@
-require('createHttpProxy');
+CreateHttpHostProxy = require('create-proxy');
 var phosts = JSON.parse('{
   "daveeddy.com": "daveeddy.com",
   "google.com": "google.com:80",
@@ -8,3 +8,5 @@ var phosts = JSON.parse('{
   },
   "foo": "localhost:8081"
 }');
+
+CreateHttpHostProxy(phosts,'host','port')
