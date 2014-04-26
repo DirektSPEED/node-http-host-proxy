@@ -5,6 +5,7 @@
  * HTTP(s) proxy with host based routing to front servers, with optional SSL or authentication
  *
  * Authors: Shaggy and Dave
+ *   - https://github.com/dspeed
  *   - https://github.com/shaggy-rl
  *   - https://github.com/bahamas10
  * License: MIT License
@@ -28,55 +29,6 @@ var defaultfaildelay = 2;
 
 var package = require('./package.json');
 
-function usage() {
-  return [
-    'usage: http-host-proxy [options] -r routefile.json',
-    '',
-    'HTTP(s) proxy with host based routing to front servers, with optional SSL or authentication',
-    '',
-    'required options',
-    '  -r, --routes <file.json>      [env HTTPHOSTPROXY_ROUTES] a JSON file of host based routes',
-    '',
-    'authentication options',
-    '  -a, --auth <authfile>         [env HTTPHOSTPROXY_AUTH] enable basic http authorization',
-    '                                and use <authfile> as the `passhash-auth` file',
-    '  -f, --fail-delay <seconds>    [env HTTPHOSTPROXY_FAIL_DELAY] delay, in seconds, before sending a response to a client',
-    '                                that failed authentication, defaults to ' + defaultfaildelay,
-    '',
-    'ssl options',
-    '  -c, --cert <certfile>         [env HTTPHOSTPROXY_CERT] the SSL cert file to use when `--ssl` is switched on',
-    '  -k, --key <keyfile>           [env HTTPHOSTPROXY_KEY] the SSL key file to use when `--ssl` is switched on',
-    '  -s, --ssl                     [env HTTPHOSTPROXY_SSL] enable ssl, requires `--key` and `--cert` be specified',
-    '',
-    'socket options',
-    '  -H, --host <host>             [env HTTPHOSTPROXY_HOST] the host address on which to listen, defaults to ' + defaulthost,
-    '  -p, --port <port>             [env HTTPHOSTPROXY_PORT] the port on which to listen, defaults to ' + defaultport,
-    '',
-    'options',
-    '  -b, --buffer                  [env HTTPHOSTPROXY_BUFFER] buffer log output, useful if this webserver is heavily used',
-    '  -h, --help                    print this message and exit',
-    '  -u, --updates                 check for available updates on npm',
-    '  -v, --version                 print the version number and exit'
-  ].join('\n');
-}
-
-// command line arguments
-var options = [
-  'a:(auth)',
-  'b(buffer)',
-  'c:(cert)',
-  'f:(fail-delay)',
-  'h(help)',
-  'H:(host)',
-  'k:(key)',
-  'p:(port)',
-  'r:(routes)',
-  's(ssl)',
-  'u(updates)',
-  'v(version)'
-].join('');
-var parser = new getopt.BasicParser(options, process.argv);
-
 var opts = {
   auth: process.env.HTTPHOSTPROXY_AUTH,
   buffer: process.env.HTTPHOSTPROXY_BUFFER,
@@ -86,51 +38,33 @@ var opts = {
   key: process.env.HTTPHOSTPROXY_KEY,
   port: process.env.HTTPHOSTPROXY_PORT,
   routesfile: process.env.HTTPHOSTPROXY_ROUTES,
+  routes: phosts|| process.env.HTTPHOSTPROXY_ROUTES,
   ssl: process.env.HTTPHOSTPROXY_SSL,
 };
-var option;
-while ((option = parser.getopt()) !== undefined) {
-  switch (option.option) {
-    case 'a': opts.auth = option.optarg; break;
-    case 'b': opts.buffer = true; break;
-    case 'c': opts.cert = option.optarg; break;
-    case 'f': opts.faildelay = option.optarg; break;
-    case 'h': console.log(usage()); process.exit(0);
-    case 'H': opts.host = option.optarg; break;
-    case 'k': opts.key = option.optarg; break;
-    case 'p': opts.port = option.optarg; break;
-    case 'r': opts.routesfile = option.optarg; break;
-    case 's': opts.ssl = true; break;
-    case 'u': // check for updates
+
+//Update Checker
       require('latest').checkupdate(package, function(ret, msg) {
         console.log(msg);
         process.exit(ret);
-      });
-      return;
-    case 'v': console.log(package.version); process.exit(0);
-    default: console.error(usage()); process.exit(1); break;
-  }
-}
-var args = process.argv.slice(parser.optind());
+    console.log(package.version); process.exit(0);
+
 
 opts.host = opts.host || defaulthost;
 opts.port = opts.port || defaultport;
 opts.faildelay = typeof opts.faildelay === 'undefined' ? defaultfaildelay : opts.faildelay;
 
-if (!opts.routesfile) {
-  console.error('[error] `-r, --routes` must be specified!\n\n%s',
-      usage());
+if (!routes) {
+  console.error('[error] `routes` must be specified!\n\n%s',
   process.exit(1);
 }
 
 if (opts.ssl && (!opts.key || !opts.cert)) {
-  console.error('[error] `-k` and `-c` must be specified with `--ssl`\n\n%s',
-      usage());
+  console.error('[error] `key` and `cert` must be specified with `ssl=true`\n\n%s',
   process.exit(1);
 }
 
 // create the proxies
-var routes = JSON.parse(fs.readFileSync(opts.routesfile, 'utf-8'));
+var routes = opts.routes;
 var proxies = {};
 Object.keys(routes).forEach(function(key) {
   var val = routes[key];
