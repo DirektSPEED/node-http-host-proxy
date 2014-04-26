@@ -2,20 +2,30 @@ HTTP Host Proxy + Modul version
 ===============
 a HTTP(s) & WS (WebSockets) proxy with host and directory based routing to endpoint servers, with optional SSL or AUTH based on node-http-host-proxy wich is complet included in this modul you can use both simply install this globaly then
 
+
+Changes:
+- Modifyed: package.json to load the mod.js if this modul gets required
+- Created: mod.js out of http-host-proxy.js 
+- Modifyed in mod.js - strip of server start 
+- Modifyed in mod.js - rest is well it exports the functions and vars from file if 
+- Modifyed in mod.js - set command line options get striped off 
+
+
+
 Add the Following settings to your example.js project file
 
-'''javascript
+```javascript
 require http-host-proxy-mod
 
-'''
+```
 
 
 Start it with
 
-'''javascript
+```javascript
 
 httpHostProxyCreate(options);
-'''
+```
 
 
 Authors
@@ -28,13 +38,6 @@ License
 -------
 
 MIT License
-
-
-
-
-
-
-
 
 
 
