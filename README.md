@@ -1,4 +1,4 @@
-HTTP Host Proxy
+HTTP Host Proxy - modul version
 ===============
 
 HTTP(s) proxy with host based routing to front servers, with optional SSL or authentication
@@ -8,7 +8,8 @@ Installation
 
 First, install [Node.js][0].  Then:
 
-    [sudo] npm install -g http-host-proxy
+    in your project 
+    npm install http-host-proxy
 
 Example
 -------
