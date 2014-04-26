@@ -3,6 +3,13 @@ HTTP Host Proxy + Modul version
 a HTTP(s) & WS (WebSockets) proxy with host and directory based routing to endpoint servers, with optional SSL or AUTH based on node-http-host-proxy wich is complet included in this modul you can use both simply install this globaly then
 
 
+TODO:
+Rewrite this stuff into a httpProxy Config Modul that gets loaded additonal to http-proxy
+- Modifyed: mod.js -strip of SSL & AUTH & CMDOPTS & ADD OPTS ASS ARRAY
+- Create: mod-ssl.js
+- Create: mod-auth.js
+- Create: mod-ws.js
+
 Changes:
 - Modifyed: package.json to load the mod.js if this modul gets required
 - Created: mod.js out of http-host-proxy.js 
