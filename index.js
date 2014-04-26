@@ -1,3 +1,4 @@
+require('createHttpProxy');
 var phosts = JSON.parse('{
   "daveeddy.com": "daveeddy.com",
   "google.com": "google.com:80",
