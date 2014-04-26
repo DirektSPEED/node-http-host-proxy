@@ -3,8 +3,8 @@
   "version": "0.0.10",
   "description": "HTTP(s) proxy with host based routing to front servers, with optional SSL or authentication",
   "author": "Dave Eddy <dave@daveeddy.com> (http://www.daveeddy.com)",
-  "main": "./http-host-proxy.js",
-  "preferGlobal": true,
+  "main": "./http-host-proxy-modul.js",
+  "preferGlobal": false,
   "bin": {
     "http-host-proxy": "./http-host-proxy.js"
   },
