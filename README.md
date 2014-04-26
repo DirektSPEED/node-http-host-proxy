@@ -1,6 +1,45 @@
-HTTP Host Proxy - modul version
+HTTP Host Proxy + Modul version
 ===============
+a HTTP(s) & WS (WebSockets) proxy with host and directory based routing to endpoint servers, with optional SSL or AUTH based on node-http-host-proxy wich is complet included in this modul you can use both simply install this globaly then
 
+Add the Following settings to your example.js project file
+
+'''javascript
+require http-host-proxy-mod
+
+'''
+
+
+Start it with
+
+'''javascript
+
+httpHostProxyCreate(options);
+'''
+
+
+Authors
+-------
+
+- [dspeed](https://github.com/DSPEED)
+- [DirektSPEED](https://github.com/DirektSPEED)
+
+License
+-------
+
+MIT License
+
+
+
+
+
+
+
+
+
+
+HTTP Host Proxy - Standalone
+===============
 HTTP(s) proxy with host based routing to front servers, with optional SSL or authentication
 
 Installation
@@ -8,8 +47,8 @@ Installation
 
 First, install [Node.js][0].  Then:
 
-    in your project 
-    npm install http-host-proxy
+
+    [sudo] npm install -g http-host-proxy-mod
 
 Example
 -------
