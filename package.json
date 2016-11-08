@@ -14,10 +14,10 @@
   "repository": "git://github.com/bahamas10/node-http-host-proxy.git",
   "license": "MIT",
   "dependencies": {
-    "posix-getopt": "~1.0.0",
+    "posix-getopt": "~1.2.0",
     "access-log": "~0.3.3",
-    "http-proxy": "~0.10.3",
-    "latest": "~0.1.2",
+    "http-proxy": "~1.15.2",
+    "latest": "~0.2.0",
     "passhash-auth": "~0.1.0",
     "strsplit": "~1.0.0",
     "log-buffer": "~0.0.3"
