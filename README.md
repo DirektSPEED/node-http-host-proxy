@@ -1,5 +1,7 @@
 HTTP Host Proxy + Modul version
 ===============
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/direktspeed/proxymanager.svg)](https://greenkeeper.io/)
 a HTTP(s) & WS (WebSockets) proxy with host and directory based routing to endpoint servers, with optional SSL or AUTH based on node-http-host-proxy wich is complet included in this modul you can use both simply install this globaly then
 
 
